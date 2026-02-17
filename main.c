@@ -35,7 +35,7 @@ int main()
     int choice;
     do
     {
-        printf("\n=====Daily Life Decion Helper====\n");
+        printf("\n=====Daily Life Decion Helper====");
         printf("\n 1. Decide what to do next");
         printf("\n 2. Resolve a dillemma");
         printf("\n 3. Suggest work based on Energy");
@@ -50,9 +50,9 @@ int main()
         case 1:
             decideNextTask();
             break;
-            // case 2:
-            //     resolveDilemma();
-            //     break;
+        case 2:
+            resolveDilemma();
+            break;
             // case 3:
             //     energyPlanner();
             //     break;
@@ -120,5 +120,37 @@ void decideNextTask()
 
         if ((i + 1) % 3 == 0)
             printf("  -> Take longer 30 min break\n");
+    }
+}
+
+/*resolve dilemma*/
+void resolveDilemma()
+{
+    char option1[50], option2[50];
+    int importance, stress;
+
+    printf("\nEnter the first option of your dilemma (more important): ");
+    scanf(" %[^\n]", option1);
+
+    printf("\nEnter the second option of your dilemma (less important): ");
+    scanf(" %[^\n]", option2);
+
+    printf("\nEnter the importance (1-5): ");
+    scanf("%d", &importance);
+
+    printf("\nStress level? (1-5): ");
+    scanf("%d", &stress);
+
+    if (importance >= 4)
+    {
+        printf("\nSuggested option: %s", option1);
+    }
+    else if (stress >= 4)
+    {
+        printf("\nSuggested option: %s", option2);
+    }
+    else
+    {
+        printf("\nSuggested option: %s", option1);
     }
 }
