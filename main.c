@@ -123,7 +123,7 @@ void decideNextTask()
     }
 }
 
-/*resolve dilemma*/
+/*resolve a dilemma*/
 void resolveDilemma()
 {
     char option1[50], option2[50];
