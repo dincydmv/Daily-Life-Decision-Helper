@@ -39,8 +39,7 @@ int main()
         printf("\n 1. Decide what to do next");
         printf("\n 2. Resolve a dillemma");
         printf("\n 3. Suggest work based on Energy");
-        printf("\n 4. Add Task to To-Do-List");
-        printf("\n 5. Exit");
+        printf("\n 4. Exit");
         printf("\n Enter your choice: ");
         scanf("%d", &choice);
 
@@ -56,9 +55,6 @@ int main()
             energyPlanner();
             break;
         case 4:
-            addToDoList();
-            break;
-        case 5:
             printf("Exiting Program...\n");
             break;
         default:
@@ -226,46 +222,4 @@ void energyPlanner()
     {
         printf("Invalid energy level.\n");
     }
-}
-
-/*Add To-Do List */
-
-void addToDoList()
-{
-
-    struct ToDo list[MAX];
-    int n, i;
-
-    printf("How many tasks to add? ");
-    scanf("%d", &n);
-
-    for (i = 0; i < n; i++)
-    {
-        printf("\nTask %d Name: ", i + 1);
-        scanf(" %[^\n]", list[i].name);
-
-        printf("Deadline (days left): ");
-        scanf("%d", &list[i].deadline);
-    }
-
-    printf("\n---------------------------------------------\n");
-    printf("%-25s %-10s %-10s\n", "Task", "Days Left", "Urgency");
-    printf("---------------------------------------------\n");
-
-    for (i = 0; i < n; i++)
-    {
-        char urgency[10];
-
-        if (list[i].deadline <= 2)
-            strcpy(urgency, "URGENT");
-        else if (list[i].deadline <= 5)
-            strcpy(urgency, "MODERATE");
-        else
-            strcpy(urgency, "LOW");
-
-        printf("%-25s %-10d %-10s\n",
-               list[i].name, list[i].deadline, urgency);
-    }
-
-    printf("---------------------------------------------\n");
 }
