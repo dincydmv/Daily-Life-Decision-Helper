@@ -21,6 +21,7 @@ struct ToDo
 {
     char name[50];
     int deadline;
+    int completed;
 };
 
 /*declaring functions*/
@@ -28,7 +29,6 @@ void decideNextTask();
 void resolveDilemma();
 void energyPlanner();
 void addToDoList();
-void getMotivation();
 
 int main()
 {
@@ -40,8 +40,7 @@ int main()
         printf("\n 2. Resolve a dillemma");
         printf("\n 3. Suggest work based on Energy");
         printf("\n 4. Add Task to To-Do-List");
-        printf("\n 5. Get Motivation");
-        printf("\n 6. Exit");
+        printf("\n 5. Exit");
         printf("\n Enter your choice: ");
         scanf("%d", &choice);
 
@@ -53,20 +52,17 @@ int main()
         case 2:
             resolveDilemma();
             break;
-            // case 3:
-            //     energyPlanner();
-            //     break;
-            // case 4:
-            //     addToDoList();
-            //     break;
-            // case 5:
-            //     getMotivation();
-            //     break;
-            // case 6:
-            //     printf("Exiting Program...\n");
-            //     break;
-            // default:
-            //     printf("Invalid choice\n");
+        case 3:
+            energyPlanner();
+            break;
+        case 4:
+            addToDoList();
+            break;
+        case 5:
+            printf("Exiting Program...\n");
+            break;
+        default:
+            printf("Invalid choice\n");
         }
 
     } while (choice != 6);
@@ -153,4 +149,123 @@ void resolveDilemma()
     {
         printf("\nSuggested option: %s", option1);
     }
+}
+
+/*Energy Planner*/
+
+void energyPlanner()
+{
+
+    struct EnergyTask tasks[MAX];
+    int n, energy, i;
+
+    printf("Enter your energy level (1-low, 2-medium, 3-high): ");
+    scanf("%d", &energy);
+
+    printf("How many tasks? ");
+    scanf("%d", &n);
+
+    for (i = 0; i < n; i++)
+    {
+        printf("\nTask %d Name: ", i + 1);
+        scanf(" %[^\n]", tasks[i].name);
+
+        printf("Energy Required (1-3): ");
+        scanf("%d", &tasks[i].energyRequired);
+    }
+
+    printf("\n--- ENERGY BASED PLAN ---\n");
+
+    if (energy == 1)
+    {
+        printf("Start with light tasks:\n");
+        for (i = 0; i < n; i++)
+            if (tasks[i].energyRequired == 1)
+                printf("- %s\n", tasks[i].name);
+
+        printf("Take a short nap or walk.\n");
+
+        for (i = 0; i < n; i++)
+            if (tasks[i].energyRequired == 2)
+                printf("- %s\n", tasks[i].name);
+    }
+
+    else if (energy == 2)
+    {
+        printf("Start with medium tasks:\n");
+        for (i = 0; i < n; i++)
+            if (tasks[i].energyRequired == 2)
+                printf("- %s\n", tasks[i].name);
+
+        printf("Then light tasks:\n");
+        for (i = 0; i < n; i++)
+            if (tasks[i].energyRequired == 1)
+                printf("- %s\n", tasks[i].name);
+
+        printf("Then one high task if possible:\n");
+        for (i = 0; i < n; i++)
+            if (tasks[i].energyRequired == 3)
+                printf("- %s\n", tasks[i].name);
+    }
+
+    else if (energy == 3)
+    {
+        printf("Start with high energy tasks:\n");
+        for (i = 0; i < n; i++)
+            if (tasks[i].energyRequired == 3)
+                printf("- %s\n", tasks[i].name);
+
+        printf("Take a break.\n");
+
+        for (i = 0; i < n; i++)
+            if (tasks[i].energyRequired <= 2)
+                printf("- %s\n", tasks[i].name);
+    }
+
+    else
+    {
+        printf("Invalid energy level.\n");
+    }
+}
+
+/*Add To-Do List */
+
+void addToDoList()
+{
+
+    struct ToDo list[MAX];
+    int n, i;
+
+    printf("How many tasks to add? ");
+    scanf("%d", &n);
+
+    for (i = 0; i < n; i++)
+    {
+        printf("\nTask %d Name: ", i + 1);
+        scanf(" %[^\n]", list[i].name);
+
+        printf("Deadline (days left): ");
+        scanf("%d", &list[i].deadline);
+    }
+
+    printf("\n---------------------------------------------\n");
+    printf("%-25s %-10s %-10s\n", "Task", "Days Left", "Urgency");
+    printf("---------------------------------------------\n");
+
+    for (i = 0; i < n; i++)
+    {
+        char urgency[10];
+
+        if (list[i].deadline <= 2)
+            strcpy(urgency, "URGENT");
+        else if (list[i].deadline <= 5)
+            strcpy(urgency, "MODERATE");
+        else
+            strcpy(urgency, "LOW");
+
+        printf("%-25s %-10d %-10s\n",
+               list[i].name, list[i].deadline, urgency);
+    }
+
+    printf("---------------------------------------------\n");
 }
